@@ -6,11 +6,13 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="custom-encryption" />
         <module name="analytic-cipher" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="analytic-cipher" target="17" />
+      <module name="custom-encryption" target="17" />
       <module name="milkyway" target="17" />
     </bytecodeTargetLevel>
   </component>
