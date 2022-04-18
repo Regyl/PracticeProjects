@@ -11,6 +11,7 @@
     <modules>
         <module>../custom-encryption</module>
         <module>../analytic-cipher</module>
+        <module>../simple-replacement</module>
     </modules>
 
     <packaging>pom</packaging>
