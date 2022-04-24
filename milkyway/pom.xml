@@ -12,6 +12,7 @@
         <module>../custom-encryption</module>
         <module>../analytic-cipher</module>
         <module>../simple-replacement</module>
+        <module>../second-custom-encryption</module>
     </modules>
 
     <packaging>pom</packaging>
