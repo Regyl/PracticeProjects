@@ -14,15 +14,14 @@ public class SecondCustomEncryption {
 
         private static final int ALPHABET_STRANGE = 33;
 
-        private static final int FIRST_SHIFT = 4;
-        private static final int SECOND_SHIFT = 9;
-        private static final int THIRD_SHIFT = 2;
+        private static final int[] SHIFTS = {4, 9, 2};
 
         //Шифр Виженера
         protected static String encryptionVigenere(String message) {
-            message = encryptionCaesar(message, FIRST_SHIFT);
-            message = encryptionCaesar(message, SECOND_SHIFT);
-            return encryptionCaesar(message, THIRD_SHIFT);
+            for(int shift : SHIFTS) {
+                message = encryptionCaesar(message, shift);
+            }
+            return message;
         }
 
         //Шифр Цезаря
