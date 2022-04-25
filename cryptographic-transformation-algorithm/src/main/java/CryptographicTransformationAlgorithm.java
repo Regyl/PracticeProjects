@@ -1,19 +1,10 @@
-import javax.crypto.Cipher;
-import javax.crypto.NoSuchPaddingException;
-import javax.crypto.spec.SecretKeySpec;
 import java.nio.charset.StandardCharsets;
-import java.security.Key;
-import java.security.KeyFactory;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.util.Arrays;
-import java.util.UUID;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 
 public class CryptographicTransformationAlgorithm {
 
-    private static final String MESSAGE = "DKJSFBHSDBFLJZDNCNBDHKHBSDJHCBLIDYBCUBSDAKLHBASNDBhjlhjghukg"; //FBLIHFDHNC;JBNDNKFBLKHABSFDLIHBXICJBNLKJABSNCL
+    private static final String MESSAGE = "DKJSFBHSDBFLJZDNCNBDHKHBSDJHCBLIDYBCUBSDAKLHBASNDBhjlhjghukg";
 
     public static void main(String[] args) {
         String MAC = Encryptor.MAC(MESSAGE);
