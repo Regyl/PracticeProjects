@@ -11,7 +11,7 @@ public class CustomEncryption {
     private static final String KEY = "212a180a-fd75-4196-b319-77e7e99365d2";
 
     public static void main(String[] args) {
-        String input = "Знать прошлое достаточно неприятно; знать еще и будущее было бы просто невыносимо.";
+        String input = "ААА ббб ааа ббб";
         assert Pattern.matches(INPUT_PATTERN, input) :
                 String.format("Input data must matches pattern below: %n %s", INPUT_PATTERN);
         System.out.println("Input text: " + input);
