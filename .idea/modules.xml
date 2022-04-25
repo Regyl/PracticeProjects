@@ -4,8 +4,11 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/PracticeProjects.iml" filepath="$PROJECT_DIR$/.idea/PracticeProjects.iml" />
       <module fileurl="file://$PROJECT_DIR$/analytic-cipher/analytic-cipher.iml" filepath="$PROJECT_DIR$/analytic-cipher/analytic-cipher.iml" />
+      <module fileurl="file://$PROJECT_DIR$/cryptographic-transformation-algorithm/cryptographic-transformation-algorithm.iml" filepath="$PROJECT_DIR$/cryptographic-transformation-algorithm/cryptographic-transformation-algorithm.iml" />
       <module fileurl="file://$PROJECT_DIR$/custom-encryption/custom-encryption.iml" filepath="$PROJECT_DIR$/custom-encryption/custom-encryption.iml" />
       <module fileurl="file://$PROJECT_DIR$/milkyway/milkyway.iml" filepath="$PROJECT_DIR$/milkyway/milkyway.iml" />
+      <module fileurl="file://$PROJECT_DIR$/second-custom-encryption/second-custom-encryption.iml" filepath="$PROJECT_DIR$/second-custom-encryption/second-custom-encryption.iml" />
+      <module fileurl="file://$PROJECT_DIR$/simple-replacement/simple-replacement.iml" filepath="$PROJECT_DIR$/simple-replacement/simple-replacement.iml" />
     </modules>
   </component>
 </project>

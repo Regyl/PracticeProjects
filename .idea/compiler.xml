@@ -7,14 +7,21 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="custom-encryption" />
+        <module name="cryptographic-transformation-algorithm" />
         <module name="analytic-cipher" />
+        <module name="second-custom-encryption" />
+        <module name="simple-replacement" />
+        <module name="custom-encryption" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="analytic-cipher" target="17" />
+      <module name="cryptographic-transformation-algorithm" target="17" />
+      <module name="cryptographic-transfromation-algorithm" target="17" />
       <module name="custom-encryption" target="17" />
       <module name="milkyway" target="17" />
+      <module name="second-custom-encryption" target="17" />
+      <module name="simple-replacement" target="17" />
     </bytecodeTargetLevel>
   </component>
 </project>
