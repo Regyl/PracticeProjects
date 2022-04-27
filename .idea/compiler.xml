@@ -10,6 +10,7 @@
         <module name="cryptographic-transformation-algorithm" />
         <module name="analytic-cipher" />
         <module name="second-custom-encryption" />
+        <module name="rsa-aes" />
         <module name="simple-replacement" />
         <module name="custom-encryption" />
       </profile>
@@ -20,6 +21,7 @@
       <module name="cryptographic-transfromation-algorithm" target="17" />
       <module name="custom-encryption" target="17" />
       <module name="milkyway" target="17" />
+      <module name="rsa-aes" target="17" />
       <module name="second-custom-encryption" target="17" />
       <module name="simple-replacement" target="17" />
     </bytecodeTargetLevel>
