@@ -1,5 +1,7 @@
 package com.deepspace.rsaaes;
 
+import com.deepspace.rsaaes.algorithm.aes.AesConstants;
+import com.deepspace.rsaaes.algorithm.aes.AesEncryptor;
 import com.deepspace.rsaaes.algorithm.rsa.RSA;
 import com.deepspace.rsaaes.algorithm.rsa.RsaDecryptor;
 import com.deepspace.rsaaes.client.EncryptionTestClient;
@@ -15,28 +17,39 @@ import java.security.KeyPair;
 import static java.util.logging.Level.*;
 
 @Log
-public class RsaAes {
+public class RsaAes extends AesConstants {
 
-    private static KeyPair rsaKeyPair;
-    private static RsaDecryptor decryptor;
-    private static SecretKey symmetricKey;
+    private static final String MESSAGE = "Hello, world!";
 
-    public static void main(String[] args) {
+    private static AesEncryptor aesEncryptor;
+    private static EncryptionTestClient client;
+
+    public static void main(String[] args) throws IllegalBlockSizeException, BadPaddingException {
+        initialize();
+
+        byte[] encryptMessage = aesEncryptor.encrypt(MESSAGE);
+        String message = client.decryptMessage(encryptMessage);
+        log.log(FINEST, message);
+    }
+
+    private static void initialize() {
         RSA rsa = RSA.getInstance();
-        rsaKeyPair = rsa.generateKeys();
+        KeyPair rsaKeyPair = rsa.generateKeys();
 
         try {
-            decryptor = new RsaDecryptor(rsaKeyPair.getPrivate()); //initialize
+            //initialize RSA decryptor
+            RsaDecryptor rsaDecryptor = new RsaDecryptor(rsaKeyPair.getPrivate());
 
-            EncryptionTestClient client = new EncryptionTestClient(rsaKeyPair.getPublic()); //initialize client and receive AES key
+            //initialize client
+            client = new EncryptionTestClient(rsaKeyPair.getPublic());
             byte[] encodedSymmetricKey = client.generateAndSendSecretKey();
-            symmetricKey = new SecretKeySpec(decryptor.decrypt(encodedSymmetricKey), "AES");
 
-
+            //initialize AES encryptor
+            SecretKey symmetricKey = new SecretKeySpec(rsaDecryptor.decrypt(encodedSymmetricKey), ALGORITHM_NAME);
+            aesEncryptor = new AesEncryptor(symmetricKey);
         } catch (InvalidKeyException | NullPointerException | IllegalBlockSizeException | BadPaddingException e) {
             log.log(WARNING, e.getMessage());
         }
-
     }
 
 }

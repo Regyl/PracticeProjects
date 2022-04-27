@@ -1,5 +1,6 @@
 package com.deepspace.rsaaes.client;
 
+import com.deepspace.rsaaes.algorithm.aes.AesDecryptor;
 import com.deepspace.rsaaes.algorithm.rsa.RsaEncryptor;
 import lombok.extern.java.Log;
 
@@ -16,10 +17,11 @@ import static java.util.logging.Level.*;
 public class EncryptionTestClient {
 
     private static final String ALGORITHM_NAME = "AES";
-    private static final int DEFAULT_KEY_SIZE = 4096;
+    private static final int DEFAULT_KEY_SIZE = 256;
 
     private static KeyGenerator generator;
 
+    private AesDecryptor aesDecryptor;
     private SecretKey secretKey;
     private RsaEncryptor rsaEncryptor;
 
@@ -44,6 +46,10 @@ public class EncryptionTestClient {
             log.log(WARNING, e.getMessage());
             return null;
         }
+    }
+
+    public String decryptMessage(byte[] payload) throws IllegalBlockSizeException, BadPaddingException {
+        return aesDecryptor.decryptMessage(payload);
     }
 
 }
