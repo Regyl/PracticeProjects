@@ -27,10 +27,8 @@ public class RsaUnwrapper extends RsaConstants {
 
     /**
      *
-     * @param key
-     * @return
-     * @throws NoSuchAlgorithmException
-     * @throws InvalidKeyException
+     * @param key encrypted SecretKey
+     * @return decrypted SecretKey
      */
     public SecretKey unwrap(byte[] key) throws NoSuchAlgorithmException, InvalidKeyException {
         return (SecretKey) unwrapper.unwrap(key, "AES", Cipher.SECRET_KEY);

@@ -28,10 +28,8 @@ public class RsaWrapper extends RsaConstants {
 
     /**
      *
-     * @param secretKey
-     * @return
-     * @throws IllegalBlockSizeException
-     * @throws InvalidKeyException
+     * @param secretKey pure SecretKey
+     * @return encrypted SecretKey
      */
     public byte[] wrap(Key secretKey) throws IllegalBlockSizeException, InvalidKeyException {
         return wrapper.wrap(secretKey);

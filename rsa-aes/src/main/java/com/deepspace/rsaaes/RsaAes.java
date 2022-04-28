@@ -46,7 +46,7 @@ public class RsaAes {
             //initialize AES encryptor
             SecretKey symmetricKey = rsaUnwrapper.unwrap(encodedSymmetricKey);
             aesEncryptor = new AesEncryptor(symmetricKey);
-        } catch (InvalidKeyException | NullPointerException | NoSuchAlgorithmException e) {
+        } catch (InvalidKeyException | NullPointerException | NoSuchAlgorithmException | IllegalBlockSizeException e) {
             log.log(WARNING, e.getMessage(), e);
         }
     }

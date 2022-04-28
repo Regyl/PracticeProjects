@@ -38,15 +38,10 @@ public class EncryptionTestClient extends AesConstants {
         this.rsaWrapper = new RsaWrapper(publicKey);
     }
 
-    public byte[] generateAndSendSecretKey() {
+    public byte[] generateAndSendSecretKey() throws IllegalBlockSizeException, InvalidKeyException {
         SecretKey secretKey = generator.generateKey();
         this.aesDecryptor = new AesDecryptor(secretKey);
-        try {
-            return rsaWrapper.wrap(secretKey);
-        } catch (IllegalBlockSizeException | InvalidKeyException e) {
-            log.log(WARNING, e.getMessage());
-            return null;
-        }
+        return rsaWrapper.wrap(secretKey);
     }
 
     public String decryptMessage(byte[] payload) throws IllegalBlockSizeException, BadPaddingException {
