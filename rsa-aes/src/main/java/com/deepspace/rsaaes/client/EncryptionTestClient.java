@@ -1,7 +1,8 @@
 package com.deepspace.rsaaes.client;
 
+import com.deepspace.rsaaes.algorithm.aes.AesConstants;
 import com.deepspace.rsaaes.algorithm.aes.AesDecryptor;
-import com.deepspace.rsaaes.algorithm.rsa.RsaEncryptor;
+import com.deepspace.rsaaes.algorithm.rsa.RsaWrapper;
 import lombok.extern.java.Log;
 
 import javax.crypto.BadPaddingException;
@@ -14,16 +15,15 @@ import java.security.PublicKey;
 import static java.util.logging.Level.*;
 
 @Log
-public class EncryptionTestClient {
+public class EncryptionTestClient extends AesConstants {
 
-    private static final String ALGORITHM_NAME = "AES";
     private static final int DEFAULT_KEY_SIZE = 256;
 
     private static KeyGenerator generator;
 
+    private final RsaWrapper rsaWrapper;
+
     private AesDecryptor aesDecryptor;
-    private SecretKey secretKey;
-    private RsaEncryptor rsaEncryptor;
 
     static {
         try {
@@ -35,14 +35,15 @@ public class EncryptionTestClient {
     }
 
     public EncryptionTestClient(PublicKey publicKey) throws InvalidKeyException {
-        this.rsaEncryptor = new RsaEncryptor(publicKey);
+        this.rsaWrapper = new RsaWrapper(publicKey);
     }
 
     public byte[] generateAndSendSecretKey() {
-        secretKey = generator.generateKey();
+        SecretKey secretKey = generator.generateKey();
+        this.aesDecryptor = new AesDecryptor(secretKey);
         try {
-            return rsaEncryptor.encrypt(secretKey.toString());
-        } catch (IllegalBlockSizeException | BadPaddingException e) {
+            return rsaWrapper.wrap(secretKey);
+        } catch (IllegalBlockSizeException | InvalidKeyException e) {
             log.log(WARNING, e.getMessage());
             return null;
         }
