@@ -15,6 +15,7 @@
         <module>../second-custom-encryption</module>
         <module>../cryptographic-transformation-algorithm</module>
         <module>../rsa-aes</module>
+        <module>../streams</module>
     </modules>
 
     <packaging>pom</packaging>
