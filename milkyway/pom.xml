@@ -16,6 +16,8 @@
         <module>../cryptographic-transformation-algorithm</module>
         <module>../rsa-aes</module>
         <module>../streams</module>
+        <module>../classgenerator</module>
+        <module>../concurrency</module>
     </modules>
 
     <packaging>pom</packaging>
@@ -36,6 +38,12 @@
                 <artifactId>lombok</artifactId>
                 <version>1.18.22</version>
                 <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.testng</groupId>
+                <artifactId>testng</artifactId>
+                <version>7.6.1</version>
+                <scope>test</scope>
             </dependency>
         </dependencies>
     </dependencyManagement>
