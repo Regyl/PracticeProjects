@@ -4,6 +4,7 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
+import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.locks.LockSupport;
 
 public class PasswordHacker {
@@ -15,24 +16,25 @@ public class PasswordHacker {
     public static String calculatePassword(int threadsNumber, String initialHash) {
         List<Future<String>> responses = new ArrayList<>(threadsNumber);
         long step = calculateStep(threadsNumber);
+        ExecutorService executorService = Executors.newFixedThreadPool(threadsNumber);
 
         for (int i=0; i < threadsNumber; i++) {
             PasswordChecker item = new PasswordChecker(step*i, step*(i+1), initialHash,
                     WORD_LENGTH, DEFAULT_RESPONSE, ALPHABET_POWER);
-            ExecutorService executorService = Executors.newSingleThreadExecutor();
             Future<String> future = executorService.submit(item);
             responses.add(future);
         }
 
         try {
             while (true) {
-                final long periodInNanos = 1000000000L * 10;
+                final long periodInNanos = 1000000000L * 10; //10 секунд
                 long finishedThreads = 0;
                 for (Future<String> item : responses) {
                     if (item.isDone()) {
                         finishedThreads++;
 
                         if (!DEFAULT_RESPONSE.equals(item.get())) {
+                            executorService.shutdownNow();
                             return item.get();
                         }
                     }

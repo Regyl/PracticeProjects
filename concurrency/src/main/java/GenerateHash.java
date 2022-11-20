@@ -5,7 +5,7 @@ import java.security.NoSuchAlgorithmException;
 
 public final class GenerateHash {
 
-    public GenerateHash() {
+    private GenerateHash() {
         throw new UnsupportedOperationException();
     }
 

@@ -7,7 +7,7 @@ public class HackPasswordTest {
     private static final String INITIAL_HASH = "40682260CC011947FC2D0B1A927138C5";
     @Test
     private void positiveMainCaseTest() {
-        int threadsNumber = 4;
+        int threadsNumber = 9;
 
         String password = PasswordHacker.calculatePassword(threadsNumber, INITIAL_HASH);
         String hash = GenerateHash.hashPassword(password);
@@ -17,7 +17,7 @@ public class HackPasswordTest {
 
     @Test
     private void negativeMainCaseTest() {
-        int threadsNumber = 4;
+        int threadsNumber = 9;
 
         String someStrForTest = "smsmbls";
         String someStringHash = GenerateHash.hashPassword(someStrForTest);
