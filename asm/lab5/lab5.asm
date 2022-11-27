@@ -21,25 +21,23 @@ B db 4 dup (?)
 
 .code
 counter PROC
-    push EBP
-    mov EBP,ESP ;формирование альтернативного указателя стека ebp=esp
-    push ECX ;спасаем используемые в процедуре регистры
+    push ECX ;Сохраняем состояние регистров на стеке
     push EBX
+
     mov AL,0
-    mov ECX,[EBP+8]
-    mov EBX,[EBP+12]
+    mov ECX,[ESP+12]
+    mov EBX,[ESP+16]
     column:
         add AL,[EBX]
         inc EBX
     loop column
 
     cbw ;Преобразование однобайтового AL в двухбайтовый AX (костыль)
-    mov cl, M ; (костыль)
+    mov cl, [ESP+12] ;(костыль)
     div cl ;В AL записывается среднее арифметическое
 
-    pop EBX
+    pop EBX ;Восстанавливаем состояние регистров
     pop ECX
-    pop EBP
     RET 100
 counter ENDP
 
