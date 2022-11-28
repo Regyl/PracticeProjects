@@ -7,6 +7,7 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="algorithms" />
         <module name="second-custom-encryption" />
         <module name="rsa-aes" />
         <module name="custom-encryption" />
@@ -19,6 +20,7 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="algorithms" target="17" />
       <module name="analytic-cipher" target="17" />
       <module name="classgenerator" target="17" />
       <module name="concurrency" target="19" />
