@@ -3,18 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/PracticeProjects.iml" filepath="$PROJECT_DIR$/.idea/PracticeProjects.iml" />
-      <module fileurl="file://$PROJECT_DIR$/algorithms/algorithms.iml" filepath="$PROJECT_DIR$/algorithms/algorithms.iml" />
-      <module fileurl="file://$PROJECT_DIR$/analytic-cipher/analytic-cipher.iml" filepath="$PROJECT_DIR$/analytic-cipher/analytic-cipher.iml" />
       <module fileurl="file://$PROJECT_DIR$/asm/asm.iml" filepath="$PROJECT_DIR$/asm/asm.iml" />
-      <module fileurl="file://$PROJECT_DIR$/classgenerator/classgenerator.iml" filepath="$PROJECT_DIR$/classgenerator/classgenerator.iml" />
-      <module fileurl="file://$PROJECT_DIR$/concurrency/concurrency.iml" filepath="$PROJECT_DIR$/concurrency/concurrency.iml" />
-      <module fileurl="file://$PROJECT_DIR$/cryptographic-transformation-algorithm/cryptographic-transformation-algorithm.iml" filepath="$PROJECT_DIR$/cryptographic-transformation-algorithm/cryptographic-transformation-algorithm.iml" />
-      <module fileurl="file://$PROJECT_DIR$/custom-encryption/custom-encryption.iml" filepath="$PROJECT_DIR$/custom-encryption/custom-encryption.iml" />
-      <module fileurl="file://$PROJECT_DIR$/milkyway/milkyway.iml" filepath="$PROJECT_DIR$/milkyway/milkyway.iml" />
-      <module fileurl="file://$PROJECT_DIR$/rsa-aes/rsa-aes.iml" filepath="$PROJECT_DIR$/rsa-aes/rsa-aes.iml" />
-      <module fileurl="file://$PROJECT_DIR$/second-custom-encryption/second-custom-encryption.iml" filepath="$PROJECT_DIR$/second-custom-encryption/second-custom-encryption.iml" />
-      <module fileurl="file://$PROJECT_DIR$/simple-replacement/simple-replacement.iml" filepath="$PROJECT_DIR$/simple-replacement/simple-replacement.iml" />
-      <module fileurl="file://$PROJECT_DIR$/streams/streams.iml" filepath="$PROJECT_DIR$/streams/streams.iml" />
     </modules>
   </component>
 </project>

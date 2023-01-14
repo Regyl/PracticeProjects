@@ -4,7 +4,9 @@ import static org.testng.AssertJUnit.assertEquals;
 import static org.testng.AssertJUnit.assertNotSame;
 
 public class HackPasswordTest {
+
     private static final String INITIAL_HASH = "40682260CC011947FC2D0B1A927138C5";
+
     @Test
     private void positiveMainCaseTest() {
         int threadsNumber = 9;

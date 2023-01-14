@@ -8,6 +8,7 @@
         <artifactId>milkyway</artifactId>
         <groupId>com.deepspace</groupId>
         <version>1.0</version>
+        <relativePath>../milkyway/pom.xml</relativePath>
     </parent>
 
     <artifactId>analytic-cipher</artifactId>

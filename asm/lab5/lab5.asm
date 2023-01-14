@@ -38,7 +38,7 @@ counter PROC
 
     pop EBX ;¬осстанавливаем состо€ние регистров
     pop ECX
-    RET 100
+    RET 8
 counter ENDP
 
 main:

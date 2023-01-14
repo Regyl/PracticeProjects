@@ -8,6 +8,7 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="algorithms" />
+        <module name="palindrome" />
         <module name="second-custom-encryption" />
         <module name="rsa-aes" />
         <module name="custom-encryption" />
@@ -15,24 +16,13 @@
         <module name="cryptographic-transformation-algorithm" />
         <module name="analytic-cipher" />
         <module name="classgenerator" />
+        <module name="concurrency-password-hacker" />
         <module name="simple-replacement" />
-        <module name="concurrency" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="algorithms" target="17" />
-      <module name="analytic-cipher" target="17" />
-      <module name="classgenerator" target="17" />
-      <module name="concurrency" target="19" />
-      <module name="cryptographic-transformation-algorithm" target="17" />
       <module name="cryptographic-transfromation-algorithm" target="17" />
-      <module name="custom-encryption" target="17" />
-      <module name="milkyway" target="17" />
-      <module name="rsa-aes" target="17" />
-      <module name="second-custom-encryption" target="17" />
-      <module name="simple-replacement" target="17" />
       <module name="stream" target="17" />
-      <module name="streams" target="17" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
