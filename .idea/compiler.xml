@@ -11,17 +11,18 @@
         <module name="palindrome" />
         <module name="second-custom-encryption" />
         <module name="rsa-aes" />
+        <module name="thread-local" />
         <module name="custom-encryption" />
         <module name="streams" />
         <module name="cryptographic-transformation-algorithm" />
         <module name="analytic-cipher" />
         <module name="classgenerator" />
         <module name="concurrency-password-hacker" />
-        <module name="simple-replacement" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="cryptographic-transfromation-algorithm" target="17" />
+      <module name="simple-replacement" target="17" />
       <module name="stream" target="17" />
     </bytecodeTargetLevel>
   </component>
