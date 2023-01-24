@@ -1,5 +1,15 @@
+/**
+ * Just a class with utility method.
+ * @implNote This realization has O(n/2) (or to simplify O(n)) time complexity.
+ */
 public class Palindrome {
 
+    /**
+     * Checks if input string is palindrome.
+     *
+     * @param word input string
+     * @return true if input string is palindrome, false otherwise
+     */
     public static boolean isPalindrome(String word) {
         if (word == null) {
             return false;
