@@ -5,14 +5,15 @@
     <option name="originalFiles">
       <list>
         <option value="$PROJECT_DIR$/milkyway/pom.xml" />
-        <option value="$PROJECT_DIR$/custom-encryption/pom.xml" />
-        <option value="$PROJECT_DIR$/analytic-cipher/pom.xml" />
         <option value="$PROJECT_DIR$/streams/pom.xml" />
       </list>
     </option>
     <option name="ignoredFiles">
       <set>
+        <option value="$PROJECT_DIR$/cryptographic-transformation-algorithm/pom.xml" />
         <option value="$PROJECT_DIR$/cryptographic-transfromation-algorithm/pom.xml" />
+        <option value="$PROJECT_DIR$/custom-encryption/pom.xml" />
+        <option value="$PROJECT_DIR$/second-custom-encryption/pom.xml" />
         <option value="$PROJECT_DIR$/untitled/pom.xml" />
       </set>
     </option>

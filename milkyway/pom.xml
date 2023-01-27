@@ -4,6 +4,17 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
+    <repositories>
+        <repository>
+            <id>pcdp-repo</id>
+            <url>https://raw.github.com/habanero-maven/hjlib-maven-repo/mvn-repo-pcdp-${pcdp.version}/</url>
+            <snapshots>
+                <enabled>true</enabled>
+                <updatePolicy>always</updatePolicy>
+            </snapshots>
+        </repository>
+    </repositories>
+
     <groupId>com.deepspace</groupId>
     <artifactId>milkyway</artifactId>
     <version>1.0</version>
@@ -16,6 +27,7 @@
         <module>../algorithms</module>
         <module>../palindrome</module>
         <module>../thread-local</module>
+        <module>../concurrency</module>
     </modules>
 
     <packaging>pom</packaging>
@@ -24,6 +36,8 @@
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
         <java.version>17</java.version>
+
+        <pcdp.version>0.0.4-SNAPSHOT</pcdp.version>
     </properties>
 
     <name>MilkyWay</name>
@@ -36,6 +50,18 @@
                 <artifactId>lombok</artifactId>
                 <version>1.18.22</version>
                 <scope>provided</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>net.jcip</groupId>
+                <artifactId>jcip-annotations</artifactId>
+                <version>1.0</version>
+                <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>edu.rice.pcdp</groupId>
+                <artifactId>pcdp-core</artifactId>
+                <version>${pcdp.version}</version>
             </dependency>
 
             <dependency>
@@ -55,14 +81,12 @@
                 <version>7.7.0</version>
                 <scope>test</scope>
             </dependency>
-
             <dependency>
                 <groupId>org.assertj</groupId>
                 <artifactId>assertj-core</artifactId>
                 <version>3.24.1</version>
                 <scope>test</scope>
             </dependency>
-
         </dependencies>
     </dependencyManagement>
 
