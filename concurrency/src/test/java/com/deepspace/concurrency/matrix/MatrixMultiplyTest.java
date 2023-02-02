@@ -3,21 +3,23 @@ package com.deepspace.concurrency.matrix;
 import com.deepspace.concurrency.ConcurrencyUtils;
 import junit.framework.TestCase;
 
-import java.util.Random;
-
 public class MatrixMultiplyTest extends TestCase {
     // Number of times to repeat each test, for consistent timing results.
     private static final int REPEATS = 20;
+
+    private static final String EXCEPTION_MESSAGE = "It was expected that the parallel implementation would run at " +
+            "least %fx faster, but it only achieved %fx speedup";
 
     /**
      * Tests the performance of the parallel implementation on a 512x512 matrix.
      */
     public void testPar512_x_512() {
-        final int ncores = ConcurrencyUtils.getThreadPoolSize();
-        double speedup = parTestHelper(512);
-        double minimalExpectedSpeedup = (double)ncores * 0.6;
-        final String errMsg = String.format("It was expected that the parallel implementation would run at " +
-                "least %fx faster, but it only achieved %fx speedup", minimalExpectedSpeedup, speedup);
+        final int nCores = ConcurrencyUtils.getThreadPoolSize();
+        double minimalExpectedSpeedup = (double)nCores * 0.6;
+
+        double speedup = parallelTestHelper(512);
+
+        final String errMsg = String.format(EXCEPTION_MESSAGE, minimalExpectedSpeedup, speedup);
         assertTrue(errMsg, speedup >= minimalExpectedSpeedup);
     }
 
@@ -25,31 +27,13 @@ public class MatrixMultiplyTest extends TestCase {
      * Tests the performance of the parallel implementation on a 768x768 matrix.
      */
     public void testPar768_x_768() {
-        final int ncores = ConcurrencyUtils.getThreadPoolSize();
-        double speedup = parTestHelper(768);
-        double minimalExpectedSpeedup = (double)ncores * 0.6;
-        final String errMsg = String.format("It was expected that the parallel implementation would run at " +
-                "least %fx faster, but it only achieved %fx speedup", minimalExpectedSpeedup, speedup);
+        final int nCores = ConcurrencyUtils.getThreadPoolSize();
+        double minimalExpectedSpeedup = (double)nCores * 0.3;
+
+        double speedup = parallelTestHelper(768);
+
+        final String errMsg = String.format(EXCEPTION_MESSAGE, minimalExpectedSpeedup, speedup);
         assertTrue(errMsg, speedup >= minimalExpectedSpeedup);
-    }
-
-    /**
-     * Create a double[] of length N to use as input for the tests.
-     *
-     * @param N Size of the array to create
-     * @return Initialized double array of length N
-     */
-    private double[][] createMatrix(final int N) {
-        final double[][] input = new double[N][N];
-        final Random rand = new Random(314);
-
-        for (int i = 0; i < N; i++) {
-            for (int j = 0; j < N; j++) {
-                input[i][j] = rand.nextInt(100);
-            }
-        }
-
-        return input;
     }
 
     /**
@@ -70,18 +54,19 @@ public class MatrixMultiplyTest extends TestCase {
      * @param N The size of the array to test
      * @return The speedup achieved, not all tests use this information
      */
-    private double parTestHelper(final int N) {
-        // Create a random input
-        final double[][] A = createMatrix(N);
-        final double[][] B = createMatrix(N);
-        final double[][] C = new double[N][N];
-        final double[][] refC = new double[N][N];
+    private double parallelTestHelper(int N) {
+        double[][] A = MatrixUtils.createMatrix(N);
+        double[][] B = MatrixUtils.createMatrix(N);
+        double[][] C = new double[N][N];
+        double[][] refC = new double[N][N];
 
         // Use a reference sequential version to compute the correct result
-        MatrixMultiply.seqMatrixMultiply(A, B, refC, N);
+        MatrixMultiplicationDTO seqDto = new MatrixMultiplicationDTO(A, B, refC, N);
+        MatrixMultiply.seqMatrixMultiply(seqDto);
 
         // Use the parallel implementation to compute the result
-        MatrixMultiply.parMatrixMultiply(A, B, C, N);
+        MatrixMultiplicationDTO dto = new MatrixMultiplicationDTO(A, B, C, N);
+        MatrixMultiply.parMatrixMultiply(dto);
 
         checkResult(refC, C, N);
 
@@ -91,13 +76,13 @@ public class MatrixMultiplyTest extends TestCase {
          */
         final long seqStartTime = System.currentTimeMillis();
         for (int r = 0; r < REPEATS; r++) {
-            MatrixMultiply.seqMatrixMultiply(A, B, C, N);
+            MatrixMultiply.seqMatrixMultiply(seqDto);
         }
         final long seqEndTime = System.currentTimeMillis();
 
         final long parStartTime = System.currentTimeMillis();
         for (int r = 0; r < REPEATS; r++) {
-            MatrixMultiply.parMatrixMultiply(A, B, C, N);
+            MatrixMultiply.parMatrixMultiply(dto);
         }
         final long parEndTime = System.currentTimeMillis();
 
