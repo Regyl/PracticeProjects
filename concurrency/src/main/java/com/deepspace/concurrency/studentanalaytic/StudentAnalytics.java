@@ -108,11 +108,8 @@ public final class StudentAnalytics {
                 .forEach(student -> {
                     String currentFirstName = student.getFirstName();
 
-                    int newValue;
-                    synchronized (firstNameCounter) { //FIXME erase synchronized
-                        newValue = firstNameCounter.getOrDefault(currentFirstName, 0) + 1;
-                        firstNameCounter.put(currentFirstName, newValue);
-                    }
+
+                    int newValue = firstNameCounter.compute(currentFirstName, (k, v) -> v == null ? 1 : v + 1);
 
                     if (newValue > commonNameCount.get()) {
                         commonNameCount.set(newValue);
