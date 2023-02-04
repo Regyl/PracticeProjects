@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 public class ConcurrencyUtils {
 
     public static int getThreadPoolSize() {
-        return Runtime.getRuntime().availableProcessors() + 1;
+        return Runtime.getRuntime().availableProcessors() - 1;
     }
 
     public static int getIOThreadPoolSize() {
