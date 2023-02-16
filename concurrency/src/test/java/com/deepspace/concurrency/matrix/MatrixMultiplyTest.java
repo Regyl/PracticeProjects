@@ -66,7 +66,7 @@ public class MatrixMultiplyTest extends TestCase {
 
         // Use the parallel implementation to compute the result
         MatrixMultiplicationDTO dto = new MatrixMultiplicationDTO(A, B, C, N);
-        MatrixMultiply.parMatrixMultiply(dto);
+        MatrixMultiply.PCDPMatrixMultiply(dto);
 
         checkResult(refC, C, N);
 
@@ -82,7 +82,7 @@ public class MatrixMultiplyTest extends TestCase {
 
         final long parStartTime = System.currentTimeMillis();
         for (int r = 0; r < REPEATS; r++) {
-            MatrixMultiply.parMatrixMultiply(dto);
+            MatrixMultiply.PCDPMatrixMultiply(dto);
         }
         final long parEndTime = System.currentTimeMillis();
 

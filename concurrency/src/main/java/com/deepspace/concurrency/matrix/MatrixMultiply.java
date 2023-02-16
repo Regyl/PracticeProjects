@@ -4,7 +4,7 @@ import edu.rice.pcdp.PCDP;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
-import java.util.Collections;
+import java.util.Arrays;
 import java.util.List;
 import java.util.function.Consumer;
 
@@ -14,14 +14,24 @@ import java.util.function.Consumer;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public final class MatrixMultiply {
 
+    /**
+     * Get a list of all the methods that can be used to perform matrix multiplication.
+     *
+     * @return method list
+     */
     public static List<Consumer<MatrixMultiplicationDTO>> getAllProcessMethods() {
-        return Collections.singletonList(MatrixMultiply::parMatrixMultiply);
+        return Arrays.asList(MatrixMultiply::manualMatrixMultiply, MatrixMultiply::PCDPMatrixMultiply,
+                MatrixMultiply::seqMatrixMultiply);
+    }
+
+    public static void manualMatrixMultiply(MatrixMultiplicationDTO dto) {
+        int N = dto.getN();
     }
 
     /**
      * Perform a two-dimensional matrix multiply (A x B = C) in parallel.
      */
-    public static void parMatrixMultiply(MatrixMultiplicationDTO dto) {
+    public static void PCDPMatrixMultiply(MatrixMultiplicationDTO dto) {
         int N = dto.getN();
         PCDP.forall2dChunked(0, N - 1, 0, N - 1, (i, j) -> {
             dto.getC()[i][j] = 0.0;
@@ -32,8 +42,7 @@ public final class MatrixMultiply {
     }
 
     /**
-     * A reference implementation of seqMatrixMultiply, in case the one in the main source file is accidentally
-     * modified.
+     * Perform a two-dimensional matrix multiply (A x B = C) sequentially.
      */
     public static void seqMatrixMultiply(MatrixMultiplicationDTO dto) {
         int N = dto.getN();
