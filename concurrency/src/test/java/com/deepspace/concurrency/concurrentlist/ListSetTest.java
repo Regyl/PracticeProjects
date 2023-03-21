@@ -1,5 +1,6 @@
 package com.deepspace.concurrency.concurrentlist;
 
+import com.deepspace.concurrency.ConcurrencyUtils;
 import junit.framework.TestCase;
 
 import java.util.concurrent.BrokenBarrierException;
@@ -12,11 +13,11 @@ public class ListSetTest extends TestCase {
 
     public void testCoarseGrainedLockingRandomLarge() throws InterruptedException {
         final SequenceGenerator addSeq = new RandomSequenceGenerator(0,
-                getNCores() * randNumsLength, randNumRange);
+                ConcurrencyUtils.getThreadPoolSize() * randNumsLength, randNumRange);
         final SequenceGenerator containsSeq = new RandomSequenceGenerator(1,
-                getNCores() * randNumsLength, randNumRange);
+                ConcurrencyUtils.getThreadPoolSize() * randNumsLength, randNumRange);
         final SequenceGenerator removeSeq = new ReversedSequenceGenerator(
-                new RandomSequenceGenerator(2, getNCores() * randNumsLength, randNumRange));
+                new RandomSequenceGenerator(2, ConcurrencyUtils.getThreadPoolSize() * randNumsLength, randNumRange));
 
         final double expectedAdd = 0.5;
         final double expectedContains = 0.7;
@@ -28,11 +29,11 @@ public class ListSetTest extends TestCase {
 
     public void testCoarseGrainedLockingRepeatingLarge() throws InterruptedException {
         final SequenceGenerator addSeq = new RepeatingSequenceGenerator(
-                getNCores() * 6 * randNumsLength, randNumsLength);
+                ConcurrencyUtils.getThreadPoolSize() * 6 * randNumsLength, randNumsLength);
         final SequenceGenerator containsSeq = new RepeatingSequenceGenerator(
-                getNCores() * 6 * randNumsLength, randNumsLength);
+                ConcurrencyUtils.getThreadPoolSize() * 6 * randNumsLength, randNumsLength);
         final SequenceGenerator removeSeq = new ReversedSequenceGenerator(
-                new RepeatingSequenceGenerator(getNCores() * 6 * randNumsLength,
+                new RepeatingSequenceGenerator(ConcurrencyUtils.getThreadPoolSize() * 6 * randNumsLength,
                         randNumsLength));
 
         final double expectedAdd = 0.5;
@@ -45,11 +46,11 @@ public class ListSetTest extends TestCase {
 
     public void testReadWriteLocksRandomLarge() throws InterruptedException {
         final SequenceGenerator addSeq = new RandomSequenceGenerator(0,
-                getNCores() * randNumsLength, randNumRange);
+                ConcurrencyUtils.getThreadPoolSize() * randNumsLength, randNumRange);
         final SequenceGenerator containsSeq = new RandomSequenceGenerator(1,
-                getNCores() * randNumsLength, randNumRange);
+                ConcurrencyUtils.getThreadPoolSize() * randNumsLength, randNumRange);
         final SequenceGenerator removeSeq = new ReversedSequenceGenerator(
-                new RandomSequenceGenerator(2, getNCores() * randNumsLength, randNumRange));
+                new RandomSequenceGenerator(2, ConcurrencyUtils.getThreadPoolSize() * randNumsLength, randNumRange));
 
         final double expectedAdd = 0.5;
         final double expectedRemove = 0.5;
@@ -61,11 +62,11 @@ public class ListSetTest extends TestCase {
 
     public void testReadWriteLocksRandomSmall() throws InterruptedException {
         final SequenceGenerator addSeq = new RandomSequenceGenerator(0,
-                getNCores() * randNumsLength / 2, randNumRange);
+                ConcurrencyUtils.getThreadPoolSize() * randNumsLength / 2, randNumRange);
         final SequenceGenerator containsSeq = new RandomSequenceGenerator(1,
-                getNCores() * randNumsLength / 2, randNumRange);
+                ConcurrencyUtils.getThreadPoolSize() * randNumsLength / 2, randNumRange);
         final SequenceGenerator removeSeq = new ReversedSequenceGenerator(
-                new RandomSequenceGenerator(2, getNCores() * randNumsLength / 2, randNumRange));
+                new RandomSequenceGenerator(2, ConcurrencyUtils.getThreadPoolSize() * randNumsLength / 2, randNumRange));
 
         final double expectedAdd = 0.5;
         final double expectedRemove = 0.5;
@@ -77,11 +78,11 @@ public class ListSetTest extends TestCase {
 
     public void testReadWriteLocksRepeatingLarge() throws InterruptedException {
         final SequenceGenerator addSeq = new RepeatingSequenceGenerator(
-                getNCores() * 6 * randNumsLength, randNumsLength);
+                ConcurrencyUtils.getThreadPoolSize() * 6 * randNumsLength, randNumsLength);
         final SequenceGenerator containsSeq = new RepeatingSequenceGenerator(
-                getNCores() * 6 * randNumsLength, randNumsLength);
+                ConcurrencyUtils.getThreadPoolSize() * 6 * randNumsLength, randNumsLength);
         final SequenceGenerator removeSeq = new ReversedSequenceGenerator(
-                new RepeatingSequenceGenerator(getNCores() * 6 * randNumsLength, randNumsLength));
+                new RepeatingSequenceGenerator(ConcurrencyUtils.getThreadPoolSize() * 6 * randNumsLength, randNumsLength));
 
         final double expectedAdd = 0.5;
         final double expectedRemove = 0.5;
@@ -93,11 +94,11 @@ public class ListSetTest extends TestCase {
 
     public void testReadWriteLocksRepeatingSmall() throws InterruptedException {
         final SequenceGenerator addSeq = new RepeatingSequenceGenerator(
-                getNCores() * 3 * randNumsLength, randNumsLength);
+                ConcurrencyUtils.getThreadPoolSize() * 3 * randNumsLength, randNumsLength);
         final SequenceGenerator containsSeq = new RepeatingSequenceGenerator(
-                getNCores() * 3 * randNumsLength, randNumsLength);
+                ConcurrencyUtils.getThreadPoolSize() * 3 * randNumsLength, randNumsLength);
         final SequenceGenerator removeSeq = new ReversedSequenceGenerator(
-                new RepeatingSequenceGenerator(getNCores() * 3 * randNumsLength, randNumsLength));
+                new RepeatingSequenceGenerator(ConcurrencyUtils.getThreadPoolSize() * 3 * randNumsLength, randNumsLength));
 
         final double expectedAdd = 0.4;
         final double expectedRemove = 0.4;
@@ -107,21 +108,12 @@ public class ListSetTest extends TestCase {
                 expectedContains, expectedRemove, "Small");
     }
 
-    private static int getNCores() {
-        String ncoresStr = System.getenv("COURSERA_GRADER_NCORES");
-        if (ncoresStr == null) {
-            return Runtime.getRuntime().availableProcessors();
-        } else {
-            return Integer.parseInt(ncoresStr);
-        }
-    }
-
     private static void printStats(TestResults ref, TestResults test,
             final SequenceGenerator seq, final String datasetName) {
         System.out.println("=========================================================");
         System.out.println(test.lbl + " vs. " + ref.lbl + " (" + datasetName + " " + seq.getLabel() + ")");
         System.out.println("=========================================================");
-        System.out.println("# threads = " + getNCores());
+        System.out.println("# threads = " + ConcurrencyUtils.getThreadPoolSize());
         System.out.println((test.addRate / ref.addRate) + "x improvement in add throughput (" + ref.addRate + " -> " + test.addRate + ")");
         System.out.println((test.containsRate / ref.containsRate) + "x improvement in contains throughput (" + ref.containsRate + " -> " + test.containsRate + ")");
         System.out.println((test.removeRate / ref.removeRate) + "x improvement in remove throughput (" + ref.removeRate + " -> " + test.removeRate + ")");
@@ -227,7 +219,7 @@ public class ListSetTest extends TestCase {
             final String lblA, final ListFactory factoryB, final String lblB,
             final SequenceGenerator addSeq, final SequenceGenerator containsSeq,
             final SequenceGenerator removeSeq) throws InterruptedException {
-        final int numThreads = getNCores();
+        final int numThreads = ConcurrencyUtils.getThreadPoolSize();
 
         /*
          * Require several warm-ups to ensure JIT does not interfere with thread
