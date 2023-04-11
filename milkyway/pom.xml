@@ -28,6 +28,7 @@
         <module>../palindrome</module>
         <module>../thread-local</module>
         <module>../concurrency</module>
+        <module>../concurrently-text-searcher</module>
     </modules>
 
     <packaging>pom</packaging>
@@ -50,6 +51,12 @@
                 <artifactId>lombok</artifactId>
                 <version>1.18.22</version>
                 <scope>provided</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>commons-io</groupId>
+                <artifactId>commons-io</artifactId>
+                <version>2.11.0</version>
             </dependency>
 
             <dependency>
