@@ -3,14 +3,13 @@ package com.deepspace.rewriter;
 import lombok.extern.java.Log;
 
 import java.io.File;
-import java.io.IOException;
-import java.nio.file.FileVisitOption;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.CountDownLatch;
-import java.util.stream.Stream;
+import java.util.stream.IntStream;
 
 @Log(topic = "PrioritizedDirectoryFileReverseRewriter")
 public class PrioritizedDirectoryFileReverseRewriter extends AbstractDirectoryFileReverseRewriter {
@@ -20,32 +19,34 @@ public class PrioritizedDirectoryFileReverseRewriter extends AbstractDirectoryFi
     }
 
     @Override
-    public void doDirectoryRewrite() {
-        try (Stream<Path> filePaths = Files.walk(Paths.get(path + "/old"), 1, FileVisitOption.FOLLOW_LINKS)) {
-            List<File> files = filePaths
-                    .map(Path::toFile)
-                    .filter(item -> !item.isDirectory())
-                    .toList();
+    public Map<String, Double> doDirectoryRewrite(Set<File> filesToProcess) {
+        ConcurrentMap<String, Double> resultTime = new ConcurrentHashMap<>(filesToProcess.size() + 1, 1);
+        CountDownLatch latch = new CountDownLatch(filesToProcess.size());
 
-            CountDownLatch latch = new CountDownLatch(files.size());
+        List<PrioritizedExecutor> prioritizedExecutors = filesToProcess.parallelStream()
+                .map(file -> new PrioritizedExecutor(file, latch, pathToWrite, resultTime))
+                .toList();
+        IntStream.range(0, filesToProcess.size()).forEach(i -> {
+            PrioritizedExecutor executor = prioritizedExecutors.get(i);
+            executor.setPriority(getThreadPriority(filesToProcess.size() - i));
+            executor.start();
+        });
 
-            files.parallelStream()
-                    .map(file -> new PrioritizedExecutor(file, latch, path))
-                    .peek(thread -> thread.setPriority(Thread.MAX_PRIORITY))
-                    .forEach(Thread::run);
+        waitForThreads(latch);
 
-            try {
-                latch.await();
-            } catch (InterruptedException e) {
-                log.warning(e.getMessage());
-            }
-        } catch (IOException e) {
-            log.warning(e.getMessage());
-        }
+        return resultTime;
     }
 
     @Override
     public String getRewriterName() {
         return "PrioritizedDirectoryFileReverseRewriter";
+    }
+
+    private int getThreadPriority(int i) {
+        if (i < Thread.NORM_PRIORITY || i > (Thread.MAX_PRIORITY - 1)) {
+            return Thread.NORM_PRIORITY;
+        }
+
+        return i;
     }
 }

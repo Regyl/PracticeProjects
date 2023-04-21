@@ -2,12 +2,10 @@ package com.deepspace.rewriter;
 
 import lombok.extern.java.Log;
 
-import java.io.IOException;
-import java.nio.file.FileVisitOption;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.stream.Stream;
+import java.io.File;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
 
 @Log(topic = "MonoThreadDirectoryFileReverseRewriter")
 public class MonoThreadDirectoryFileReverseRewriter extends AbstractDirectoryFileReverseRewriter {
@@ -22,14 +20,13 @@ public class MonoThreadDirectoryFileReverseRewriter extends AbstractDirectoryFil
     }
 
     @Override
-    public void doDirectoryRewrite() {
-        try (Stream<Path> filePaths = Files.walk(Paths.get(path + "/old"), 1, FileVisitOption.FOLLOW_LINKS)) {
-            filePaths
-                    .map(Path::toFile)
-                    .filter(item -> !item.isDirectory())
-                    .forEach(this::doFileRewrite);
-        } catch (IOException e) {
-            log.warning(e.getMessage());
-        }
+    public Map<String, Double> doDirectoryRewrite(Set<File> filesToProcess) {
+        Map<String, Double> resultTime = new HashMap<>(filesToProcess.size() + 1, 1);
+        filesToProcess.forEach(item -> {
+            double time = doFileRewrite(item);
+            resultTime.put(item.getName(), time);
+        });
+
+        return resultTime;
     }
 }

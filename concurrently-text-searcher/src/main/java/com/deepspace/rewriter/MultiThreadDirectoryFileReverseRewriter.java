@@ -3,16 +3,12 @@ package com.deepspace.rewriter;
 import lombok.extern.java.Log;
 
 import java.io.File;
-import java.io.IOException;
-import java.nio.file.FileVisitOption;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.stream.Stream;
 
 @Log(topic = "MultiThreadDirectoryFileReverseRewriter")
 public class MultiThreadDirectoryFileReverseRewriter extends AbstractDirectoryFileReverseRewriter {
@@ -27,30 +23,21 @@ public class MultiThreadDirectoryFileReverseRewriter extends AbstractDirectoryFi
     }
 
     @Override
-    public void doDirectoryRewrite() {
-        try (Stream<Path> filePaths = Files.walk(Paths.get(path + "/old"), 1, FileVisitOption.FOLLOW_LINKS)) {
-            List<File> files = filePaths
-                    .map(Path::toFile)
-                    .filter(item -> !item.isDirectory())
-                    .toList();
-
-            CountDownLatch latch = new CountDownLatch(files.size());
-            ExecutorService executor = Executors.newWorkStealingPool(files.size());
-            files.forEach(item -> executor.submit(() -> {
-                try {
-                    this.doFileRewrite(item);
-                } finally {
-                    latch.countDown();
-                }
-            }));
-
+    public Map<String, Double> doDirectoryRewrite(Set<File> filesToProcess) {
+        Map<String, Double> resultTime = new HashMap<>(filesToProcess.size() + 1, 1);
+        CountDownLatch latch = new CountDownLatch(filesToProcess.size());
+        ExecutorService executor = Executors.newWorkStealingPool(filesToProcess.size());
+        filesToProcess.forEach(item -> executor.submit(() -> {
             try {
-                latch.await();
-            } catch (InterruptedException e) {
-                log.warning(e.getMessage());
+                double time = this.doFileRewrite(item);
+                resultTime.put(item.getName(), time);
+            } finally {
+                latch.countDown();
             }
-        } catch (IOException e) {
-            log.warning(e.getMessage());
-        }
+        }));
+
+        waitForThreads(latch);
+
+        return resultTime;
     }
 }

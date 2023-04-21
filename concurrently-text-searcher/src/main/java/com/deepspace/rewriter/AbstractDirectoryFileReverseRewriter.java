@@ -1,5 +1,6 @@
 package com.deepspace.rewriter;
 
+import com.deepspace.CountUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.java.Log;
 import org.apache.commons.io.input.ReversedLinesFileReader;
@@ -9,19 +10,25 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
+import java.util.concurrent.CountDownLatch;
 
 @RequiredArgsConstructor
 @Log(topic = "AbstractDirectoryFileReverseRewriter")
 public abstract class AbstractDirectoryFileReverseRewriter implements DirectoryFileReverseRewriter {
 
-    protected static final String NEW_FILE_PREFIX = "new_";
-    protected static final Charset DEFAULT_CHARSET = StandardCharsets.UTF_8;
+    private static final Charset DEFAULT_CHARSET = StandardCharsets.UTF_8;
+    private static final String NEW_FILE_POSTFIX = "_out.";
 
-    protected final String path;
+    protected final String pathToWrite;
 
-    protected void doFileRewrite(File file) {
-        String newFileName = NEW_FILE_PREFIX + file.getName();
-        File newFile = new File(path + "/new/" + newFileName);
+    protected double doFileRewrite(File file) {
+        long timeStart = System.nanoTime();
+        String[] splitName = file.getName().split("\\.");
+        if (splitName.length != 2) {
+            throw new IllegalArgumentException("Недопустимое название файла: " + file.getName());
+        }
+        String newFileName = splitName[0] + NEW_FILE_POSTFIX + splitName[1];
+        File newFile = new File(pathToWrite + newFileName);
 
         try (
                 FileOutputStream fos = new FileOutputStream(newFile);
@@ -36,6 +43,17 @@ public abstract class AbstractDirectoryFileReverseRewriter implements DirectoryF
                 payload = fileReader.readLine();
             } while (payload != null);
         } catch (IOException e) {
+            log.warning(e.getMessage());
+        }
+
+        long timeEnd = System.nanoTime();
+        return CountUtils.millsBetween(timeStart, timeEnd);
+    }
+
+    protected void waitForThreads(CountDownLatch latch) {
+        try {
+            latch.await();
+        } catch (InterruptedException e) {
             log.warning(e.getMessage());
         }
     }
