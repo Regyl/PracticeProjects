@@ -12,6 +12,7 @@ import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.locks.LockSupport;
 
 @Log(topic = "PrioritizedExecutor")
 @RequiredArgsConstructor
@@ -27,6 +28,7 @@ public class PrioritizedExecutor extends Thread {
 
     @Override
     public void run() {
+        System.out.printf("File %s starts at: %s %n", file.getName(), System.currentTimeMillis());
         long timeStart = System.nanoTime();
         String[] splitName = file.getName().split("\\.");
         if (splitName.length != 2) {
@@ -49,6 +51,7 @@ public class PrioritizedExecutor extends Thread {
             } while (payload != null);
 
             long timeEnd = System.nanoTime();
+            System.out.printf("File %s ends at: %s %n", file.getName(), System.currentTimeMillis());
             resultTime.put(file.getName(), CountUtils.millsBetween(timeStart, timeEnd));
         } catch (IOException e) {
             log.warning(e.getMessage());

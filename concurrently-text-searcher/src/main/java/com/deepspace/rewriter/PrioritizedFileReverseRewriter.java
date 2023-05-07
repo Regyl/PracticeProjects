@@ -12,9 +12,9 @@ import java.util.concurrent.CountDownLatch;
 import java.util.stream.IntStream;
 
 @Log(topic = "PrioritizedDirectoryFileReverseRewriter")
-public class PrioritizedDirectoryFileReverseRewriter extends AbstractDirectoryFileReverseRewriter {
+public class PrioritizedFileReverseRewriter extends AbstractFileReverseRewriter {
 
-    public PrioritizedDirectoryFileReverseRewriter(String path) {
+    public PrioritizedFileReverseRewriter(String path) {
         super(path);
     }
 
@@ -28,7 +28,9 @@ public class PrioritizedDirectoryFileReverseRewriter extends AbstractDirectoryFi
                 .toList();
         IntStream.range(0, filesToProcess.size()).forEach(i -> {
             PrioritizedExecutor executor = prioritizedExecutors.get(i);
-            executor.setPriority(getThreadPriority(filesToProcess.size() - i));
+//            executor.setPriority(getThreadPriority(filesToProcess.size() - i));
+            executor.setPriority(Thread.MAX_PRIORITY);
+            executor.setName("CUSTOM THREAD " + i);
             executor.start();
         });
 

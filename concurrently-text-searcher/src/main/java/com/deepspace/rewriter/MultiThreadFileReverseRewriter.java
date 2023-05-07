@@ -11,9 +11,9 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 @Log(topic = "MultiThreadDirectoryFileReverseRewriter")
-public class MultiThreadDirectoryFileReverseRewriter extends AbstractDirectoryFileReverseRewriter {
+public class MultiThreadFileReverseRewriter extends AbstractFileReverseRewriter {
 
-    public MultiThreadDirectoryFileReverseRewriter(String path) {
+    public MultiThreadFileReverseRewriter(String path) {
         super(path);
     }
 
@@ -37,6 +37,7 @@ public class MultiThreadDirectoryFileReverseRewriter extends AbstractDirectoryFi
         }));
 
         waitForThreads(latch);
+        executor.shutdownNow();
 
         return resultTime;
     }
