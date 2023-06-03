@@ -16,6 +16,7 @@ import java.time.Clock;
 import java.time.LocalTime;
 import java.util.*;
 import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 @Log(topic = "DirectoryUtils")
 public class RewriteUtils {
@@ -128,6 +129,27 @@ public class RewriteUtils {
             fos.write(sb.toString().getBytes(StandardCharsets.UTF_8));
         } catch (IOException e) {
             System.out.println(e.getMessage());
+        }
+    }
+
+    public static void logThreadWithGroups() {
+        /*ThreadGroup[] groups = new ThreadGroup[100];
+        Thread.currentThread().getThreadGroup().getParent().enumerate(groups);
+
+        Stream.of(groups).filter(Objects::nonNull).forEach(group -> {
+            System.out.println("\nGroup name: " + group.getName() + "\n Threads: ");
+            Thread[] threads = new Thread[100];
+            group.enumerate(threads);
+
+            Stream.of(threads).filter(Objects::nonNull).forEach(thread -> {
+                System.out.println(thread.getName() + " isDaemon: " + thread.isDaemon());
+            });
+        });*/
+
+        Set<Thread> threads = Thread.getAllStackTraces().keySet();
+        System.out.printf("%-15s \t %-15s \t %-15s \t %s\n", "Name", "State", "Priority", "isDaemon");
+        for (Thread t : threads) {
+            System.out.printf("%-15s \t %-15s \t %-15d \t %s\n", t.getName(), t.getState(), t.getPriority(), t.isDaemon());
         }
     }
 }

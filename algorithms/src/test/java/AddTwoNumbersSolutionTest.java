@@ -3,6 +3,7 @@ import addtwonumbers.ListNode;
 import org.testng.annotations.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
+
 public class AddTwoNumbersSolutionTest {
 
     private static final AddTwoNumbersSolution SOLUTION = new AddTwoNumbersSolution();

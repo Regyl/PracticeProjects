@@ -25,7 +25,8 @@ public abstract class AbstractFileReverseRewriter implements FileReverseRewriter
     protected final String pathToWrite;
 
     protected double doFileRewrite(File file) {
-        System.out.printf("File %s starts at: %s %n", file.getName(), LocalTime.now(Clock.systemUTC()));
+//        LockSupport.parkNanos(100_000_000_000L);
+//        System.out.printf("File %s starts at: %s %n", file.getName(), LocalTime.now(Clock.systemUTC()));
         long timeStart = System.nanoTime();
         String[] splitName = file.getName().split("\\.");
         if (splitName.length != 2) {
@@ -51,7 +52,7 @@ public abstract class AbstractFileReverseRewriter implements FileReverseRewriter
         }
 
         long timeEnd = System.nanoTime();
-        System.out.printf("File %s ends at: %s %n", file.getName(), LocalTime.now(Clock.systemUTC()));
+        //System.out.printf("File %s ends at: %s %n", file.getName(), LocalTime.now(Clock.systemUTC()));
         return CountUtils.millsBetween(timeStart, timeEnd);
     }
 
