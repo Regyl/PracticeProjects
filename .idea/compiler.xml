@@ -11,6 +11,7 @@
         <module name="palindrome" />
         <module name="rsa-aes" />
         <module name="concurrently-text-searcher" />
+        <module name="cbr" />
         <module name="thread-local" />
         <module name="streams" />
         <module name="classgenerator" />
