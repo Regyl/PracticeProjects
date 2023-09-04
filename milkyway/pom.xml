@@ -29,6 +29,7 @@
         <module>../thread-local</module>
         <module>../concurrency</module>
         <module>../concurrently-text-searcher</module>
+        <module>../mybatis-sql-formatter</module>
     </modules>
 
     <packaging>pom</packaging>

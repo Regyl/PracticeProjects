@@ -15,6 +15,8 @@
     <file url="file://$PROJECT_DIR$/concurrency/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/concurrently-text-searcher/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/concurrently-text-searcher/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/mybatis-sql-formatter/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/mybatis-sql-formatter/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/palindrome/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/palindrome/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/stream/src/main/java" charset="UTF-8" />

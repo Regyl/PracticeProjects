@@ -15,6 +15,7 @@
         <module name="streams" />
         <module name="classgenerator" />
         <module name="concurrency-password-hacker" />
+        <module name="mybatis-sql-formatter" />
         <module name="concurrency" />
       </profile>
     </annotationProcessing>
