@@ -8,9 +8,9 @@ import java.util.Map;
 import java.util.Set;
 
 @Log(topic = "MonoThreadDirectoryFileReverseRewriter")
-public class MonoThreadDirectoryFileReverseRewriter extends AbstractDirectoryFileReverseRewriter {
+public class MonoThreadFileReverseRewriter extends AbstractFileReverseRewriter {
 
-    public MonoThreadDirectoryFileReverseRewriter(String path) {
+    public MonoThreadFileReverseRewriter(String path) {
         super(path);
     }
 

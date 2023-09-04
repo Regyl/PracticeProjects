@@ -10,11 +10,14 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
+import java.time.Clock;
+import java.time.LocalTime;
 import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.locks.LockSupport;
 
 @RequiredArgsConstructor
 @Log(topic = "AbstractDirectoryFileReverseRewriter")
-public abstract class AbstractDirectoryFileReverseRewriter implements DirectoryFileReverseRewriter {
+public abstract class AbstractFileReverseRewriter implements FileReverseRewriter {
 
     private static final Charset DEFAULT_CHARSET = StandardCharsets.UTF_8;
     private static final String NEW_FILE_POSTFIX = "_out.";
@@ -22,6 +25,8 @@ public abstract class AbstractDirectoryFileReverseRewriter implements DirectoryF
     protected final String pathToWrite;
 
     protected double doFileRewrite(File file) {
+//        LockSupport.parkNanos(100_000_000_000L);
+//        System.out.printf("File %s starts at: %s %n", file.getName(), LocalTime.now(Clock.systemUTC()));
         long timeStart = System.nanoTime();
         String[] splitName = file.getName().split("\\.");
         if (splitName.length != 2) {
@@ -47,6 +52,7 @@ public abstract class AbstractDirectoryFileReverseRewriter implements DirectoryF
         }
 
         long timeEnd = System.nanoTime();
+        //System.out.printf("File %s ends at: %s %n", file.getName(), LocalTime.now(Clock.systemUTC()));
         return CountUtils.millsBetween(timeStart, timeEnd);
     }
 

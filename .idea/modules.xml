@@ -4,8 +4,6 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/PracticeProjects.iml" filepath="$PROJECT_DIR$/.idea/PracticeProjects.iml" />
       <module fileurl="file://$PROJECT_DIR$/asm/asm.iml" filepath="$PROJECT_DIR$/asm/asm.iml" />
-      <module fileurl="file://$PROJECT_DIR$/milkyway/milkyway.iml" filepath="$PROJECT_DIR$/milkyway/milkyway.iml" />
-      <module fileurl="file://$PROJECT_DIR$/thread-local.iml" filepath="$PROJECT_DIR$/thread-local.iml" />
     </modules>
   </component>
 </project>

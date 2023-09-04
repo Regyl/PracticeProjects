@@ -4,7 +4,7 @@ import java.io.File;
 import java.util.Map;
 import java.util.Set;
 
-public interface DirectoryFileReverseRewriter {
+public interface FileReverseRewriter {
 
     Map<String, Double> doDirectoryRewrite(Set<File> filesToProcess);
 
