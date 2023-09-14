@@ -30,6 +30,7 @@
         <module>../concurrency</module>
         <module>../concurrently-text-searcher</module>
         <module>../cbr</module>
+        <module>../mybatis-sql-formatter</module>
         <module>../weld-demo</module>
     </modules>
 
