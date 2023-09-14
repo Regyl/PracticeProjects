@@ -30,6 +30,7 @@
         <module>../concurrency</module>
         <module>../concurrently-text-searcher</module>
         <module>../cbr</module>
+        <module>../weld-demo</module>
     </modules>
 
     <packaging>pom</packaging>

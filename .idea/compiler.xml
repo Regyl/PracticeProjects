@@ -17,6 +17,7 @@
         <module name="classgenerator" />
         <module name="concurrency-password-hacker" />
         <module name="concurrency" />
+        <module name="weld-demo" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
