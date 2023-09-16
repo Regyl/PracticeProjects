@@ -8,7 +8,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class AppTest {
     
     @Test
-    public void testSummarySolver() {
+    public void solveWhenYCanBeReduced() {
         String firstEquation = "2x-5y=10";
         String secondEquation = "3x+5y=30";
         
@@ -16,5 +16,27 @@ public class AppTest {
         
         assertThat(result.getLeft()).isEqualTo(Double.parseDouble("8"));
         assertThat(result.getRight()).isEqualTo(Double.parseDouble("1.2"));
+    }
+    
+    @Test
+    public void solveWhenVariablesCouldNotBeReduced() {
+        String firstEquation = "x-2y=3";
+        String secondEquation = "5x+y=4";
+        
+        Pair<Double, Double> result = App.solve(firstEquation, secondEquation);
+        
+        assertThat(result.getLeft()).isEqualTo(Double.parseDouble("1"));
+        assertThat(result.getRight()).isEqualTo(Double.parseDouble("-1"));
+    }
+    
+    @Test
+    public void solveWhenEquationResultIsLessThanZero() {
+        String firstEquation = "2x+y=-1";
+        String secondEquation = "5x-3y=-19";
+        
+        Pair<Double, Double> result = App.solve(firstEquation, secondEquation);
+        
+        assertThat(result.getLeft()).isEqualTo(Double.parseDouble("-2"));
+        assertThat(result.getRight()).isEqualTo(Double.parseDouble("3"));
     }
 }

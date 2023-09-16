@@ -2,6 +2,7 @@ package com.github.regyl.lab1.solver;
 
 import com.github.regyl.lab1.dto.EquationParameters;
 import com.github.regyl.lab1.model.MathMethod;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.tuple.Pair;
 
 import java.util.Map;
@@ -46,10 +47,18 @@ public abstract class AbstractEquationSolver {
             second = MathMethod.SUBTRACTION.getValue() + second;
         }
         return EquationParameters.builder()
-                .first(Double.parseDouble(matcher.group(1)))
-                .second(Double.parseDouble(second))
+                .first(getGroupParameterValue(matcher.group(1)))
+                .second(getGroupParameterValue(second))
                 .method(method)
                 .result(Double.parseDouble(matcher.group(6)))
                 .build();
+    }
+    
+    private Double getGroupParameterValue(String groupValue) {
+        if (StringUtils.isEmpty(groupValue)) {
+            return 1.0;
+        }
+        
+        return Double.parseDouble(groupValue);
     }
 }
