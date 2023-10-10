@@ -31,7 +31,7 @@ public class PartWordSearcherImpl implements WordSearcher {
         log.info(this.getClass().getSimpleName());
         
         String target = searchDto.getTarget().toLowerCase();
-        Predicate<String> predicate = (item) -> item.contains(target);
+        Predicate<String> predicate = (item) -> item.toLowerCase().contains(target);
         
         searchDto.setPredicate(predicate);
         return wordSearcher.findWord(searchDto);
