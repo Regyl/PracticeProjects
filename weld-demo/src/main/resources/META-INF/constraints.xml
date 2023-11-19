@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<constraint-mappings
+        xmlns="http://jboss.org/xml/ns/javax/validation/mapping"
+        version="1.1">
+  <bean class="com.github.regyl.lab4.dto.StationWayDtoXml" ignore-annotations="false">
+
+    <field name="specialization">
+      <constraint annotation="jakarta.validation.constraints.Pattern">
+        <message>Поле специализация должно принимать одно из трёх значений: 0, 18 или 99</message>
+        <element name="regexp">0|18|99</element>
+      </constraint>
+    </field>
+
+  </bean>
+</constraint-mappings>
+
