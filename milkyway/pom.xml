@@ -22,7 +22,6 @@
     <modules>
         <module>../rsa-aes</module>
         <module>../streams</module>
-        <module>../classgenerator</module>
         <module>../concurrency-password-hacker</module>
         <module>../algorithms</module>
         <module>../palindrome</module>
@@ -32,6 +31,7 @@
         <module>../cbr</module>
         <module>../mybatis-sql-formatter</module>
         <module>../weld-demo</module>
+        <module>../leetcode-templates</module>
     </modules>
 
     <packaging>pom</packaging>
@@ -58,7 +58,7 @@
             <dependency>
                 <groupId>ch.qos.logback</groupId>
                 <artifactId>logback-classic</artifactId>
-                <version>1.4.11</version>
+                <version>1.4.12</version>
             </dependency>
 
             <dependency>

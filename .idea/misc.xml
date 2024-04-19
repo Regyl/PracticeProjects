@@ -10,6 +10,7 @@
     </option>
     <option name="ignoredFiles">
       <set>
+        <option value="$PROJECT_DIR$/classgenerator/pom.xml" />
         <option value="$PROJECT_DIR$/cryptographic-transformation-algorithm/pom.xml" />
         <option value="$PROJECT_DIR$/cryptographic-transfromation-algorithm/pom.xml" />
         <option value="$PROJECT_DIR$/custom-encryption/pom.xml" />
@@ -17,6 +18,7 @@
         <option value="$PROJECT_DIR$/untitled/pom.xml" />
       </set>
     </option>
+    <option name="workspaceImportForciblyTurnedOn" value="true" />
   </component>
   <component name="ProjectRootManager" version="2" languageLevel="JDK_17" project-jdk-name="openjdk-17" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/out" />

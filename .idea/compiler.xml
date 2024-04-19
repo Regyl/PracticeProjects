@@ -8,21 +8,22 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="algorithms" />
-        <module name="palindrome" />
-        <module name="rsa-aes" />
         <module name="concurrently-text-searcher" />
-        <module name="cbr" />
         <module name="thread-local" />
+        <module name="leetcode-templates" />
         <module name="streams" />
-        <module name="classgenerator" />
         <module name="concurrency-password-hacker" />
         <module name="mybatis-sql-formatter" />
         <module name="concurrency" />
+        <module name="palindrome" />
+        <module name="rsa-aes" />
+        <module name="cbr" />
         <module name="weld-demo" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="analytic-cipher" target="17" />
+      <module name="classgenerator" target="17" />
       <module name="cryptographic-transformation-algorithm" target="17" />
       <module name="cryptographic-transfromation-algorithm" target="17" />
       <module name="custom-encryption" target="17" />
